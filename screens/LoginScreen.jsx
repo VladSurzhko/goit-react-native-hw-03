@@ -12,11 +12,15 @@ export const Login = () => {
   const [password, setPassword] = useState("");
   const [secureTextEntry, setSecureTextEntry] = useState(true);
   const [isOpenKeyboard, setIsOpenKeyboard] = useState(false);
+  const [email, setEmail] = useState("");
 
   const togglePassword = () => {
   setSecureTextEntry(!secureTextEntry);
   };
-  const shouldShowText = secureTextEntry && !password;
+  const handleSubmit = (evt) => {
+    console.log({ email, password });
+  };
+  // const shouldShowText = secureTextEntry && !password;
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -35,6 +39,9 @@ export const Login = () => {
             style={[styles.commonTextParams, styles.input]}
             placeholder="Адреса електронної пошти "
             onFocus={() => setIsOpenKeyboard(true)}
+            onBlur={() => setIsOpenKeyboard(false)}
+            onChangeText={setEmail}
+            value={email}
           ></TextInput>
           <View>
             <TextInput
@@ -54,7 +61,7 @@ export const Login = () => {
               <Text>{secureTextEntry ? "Показати" : "Сховати"}</Text>
             </TouchableOpacity>
           </View>
-          <TouchableOpacity style={styles.button}>
+          <TouchableOpacity style={styles.button} onPress={handleSubmit}>
             <Text style={[styles.commonTextParams, styles.buttonText]}>
               Зареєстуватися
             </Text>
